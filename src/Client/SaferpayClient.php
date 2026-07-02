@@ -295,16 +295,17 @@ final class SaferpayClient implements SaferpayClientInterface
 
     private function provideFullUrl(GatewayConfigInterface $gatewayConfig, string $url): string
     {
-        return $this->saferpayApiBaseUrlResolver->resolve($gatewayConfig) . $url;
+        return $this->saferpayApiBaseUrlResolver->resolve($gatewayConfig).$url;
     }
 
     private function provideHeaders(GatewayConfigInterface $gatewayConfig): array
     {
-        $username = (string) $gatewayConfig->getConfig()['username'];
-        $password = (string) $gatewayConfig->getConfig()['password'];
+        $config = $gatewayConfig->getConfig();
+        $username = (string) ($config['username'] ?? '');
+        $password = (string) ($config['password'] ?? '');
 
         return [
-            'Authorization' => 'Basic ' . base64_encode($username . ':' . $password),
+            'Authorization' => 'Basic '.base64_encode($username.':'.$password),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];

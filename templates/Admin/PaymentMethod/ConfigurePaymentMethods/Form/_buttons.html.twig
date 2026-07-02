@@ -1,7 +1,8 @@
-<div class="ui hidden divider"></div>
-<div class="ui buttons">
-    <button class="ui labeled icon primary button" type="submit" id="sylius_save_changes_button">
-        <i class="save icon"></i> {{ 'sylius.ui.save_changes'|trans }}
-    </button>
-    {% include '@SyliusUi/Form/Buttons/_cancel.html.twig' with {'path': paths.cancel|default(path('sylius_admin_payment_method_index'))} %}
+{% import '@SyliusAdmin/shared/helper/button.html.twig' as button %}
+
+{% set resource = hookable_metadata.context.resource %}
+
+<div class="d-flex gap-2 mt-3">
+    {{ button.update() }}
+    {{ button.cancel({ fallback_url: path('sylius_admin_payment_method_update', {'id': resource.id}) }) }}
 </div>

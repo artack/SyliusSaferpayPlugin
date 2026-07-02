@@ -1,6 +1,8 @@
-{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
-
 {% if data.gatewayConfig.factoryName == 'saferpay' %}
-    {% set path = options.link.url|default(path(options.link.route|default(grid.requestConfiguration.getRouteName('update')), options.link.parameters|default({'id': data.id}))) %}
-    {{ buttons.edit(path, action.label) }}
+    {% set default_route = options.link.route|default(grid.requestConfiguration is defined ? grid.requestConfiguration.getRouteName('update') : null) %}
+    {% set path = options.link.url|default(default_route ? path(default_route, options.link.parameters|default({'id': data.id})) : null) %}
+
+    <a href="{{ path }}" class="btn">
+        {{ action.label|trans }}
+    </a>
 {% endif %}

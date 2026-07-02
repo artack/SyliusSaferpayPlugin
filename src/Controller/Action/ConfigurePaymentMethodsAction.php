@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CommerceWeavers\SyliusSaferpayPlugin\Controller\Action;
 
 use CommerceWeavers\SyliusSaferpayPlugin\Command\ConfigurePaymentMethods;
+use CommerceWeavers\SyliusSaferpayPlugin\Exception\SaferpayPaymentMethodsUnavailableException;
 use CommerceWeavers\SyliusSaferpayPlugin\Form\Type\SaferpayPaymentMethodsConfigurationType;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
@@ -51,11 +52,22 @@ final class ConfigurePaymentMethodsAction
             return $this->provideRedirectResponse($request);
         }
 
-        $form = $this->formFactory->create(
-            SaferpayPaymentMethodsConfigurationType::class,
-            $gatewayConfig->getConfig(),
-            ['paymentMethod' => $paymentMethod],
-        );
+        try {
+            $form = $this->formFactory->create(
+                SaferpayPaymentMethodsConfigurationType::class,
+                $gatewayConfig->getConfig(),
+                ['paymentMethod' => $paymentMethod],
+            );
+        } catch (SaferpayPaymentMethodsUnavailableException $exception) {
+            $this->addFlashMessage(
+                $request,
+                'error',
+                'sylius_saferpay.payment_method.payment_methods_unavailable',
+                ['%reason%' => $exception->getReason()],
+            );
+
+            return $this->provideRedirectResponse($request);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,11 +93,11 @@ final class ConfigurePaymentMethodsAction
         ));
     }
 
-    private function addFlashMessage(Request $request, string $type, string $message): void
+    private function addFlashMessage(Request $request, string $type, string $message, array $parameters = []): void
     {
         /** @var Session $session */
         $session = $request->getSession();
-        $session->getFlashBag()->add($type, $message);
+        $session->getFlashBag()->add($type, [] === $parameters ? $message : ['message' => $message, 'parameters' => $parameters]);
     }
 
     private function provideRedirectResponse(Request $request): RedirectResponse

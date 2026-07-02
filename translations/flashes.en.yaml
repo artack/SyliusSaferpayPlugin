@@ -3,3 +3,4 @@ sylius_saferpay:
         refund_failed: 'Payment refund has failed.'
     payment_method:
          configure_payment_methods: 'Saferpay payment methods configuration has been successfully updated.'
+         payment_methods_unavailable: 'Could not load the payment methods from Saferpay: %reason%. Please check the gateway credentials.'

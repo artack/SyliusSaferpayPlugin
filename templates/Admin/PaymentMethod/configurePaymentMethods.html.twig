@@ -1,7 +1,13 @@
-{% extends '@SyliusAdmin/layout.html.twig' %}
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
 
-{% block title %}{{ 'commerce_weavers_saferpay.ui.configure_saferpay_payment_methods'|trans() }} {{ parent() }}{% endblock %}
+{% set prefixes = [
+    'commerce_weavers_saferpay.admin.payment_method.configure_payment_methods',
+] %}
 
-{% block content %}
-    {{ sylius_template_event('commerce_weavers_saferpay.admin.payment_method.configure_payment_methods', _context) }}
+{% block title %}
+    {{ 'commerce_weavers_saferpay.ui.configure_saferpay_payment_methods'|trans }} {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% hook prefixes with { resource: payment_method, form } %}
 {% endblock %}

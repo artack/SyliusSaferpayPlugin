@@ -8,14 +8,27 @@ use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAut
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAuthorizationSuccessListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentCaptureFailureListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentCaptureSuccessListener;
+use CommerceWeavers\SyliusSaferpayPlugin\Payment\EventListener\RefundPaymentOnTransitionListener;
+use CommerceWeavers\SyliusSaferpayPlugin\Processor\RefundProcessorInterface;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentRefundSuccessListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\Resolver\DebugModeResolverInterface;
 use Sylius\Calendar\Provider\DateTimeProviderInterface;
+use Sylius\Component\Payment\PaymentTransitions;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
+
+    $services->set(RefundPaymentOnTransitionListener::class)
+        ->args([
+            service(RefundProcessorInterface::class),
+        ])
+        ->tag('kernel.event_listener', [
+            'event' => 'workflow.sylius_payment.transition.' . PaymentTransitions::TRANSITION_REFUND,
+            'priority' => -100,
+        ])
+    ;
 
     $services->set(PaymentAssertionFailureListener::class)
         ->args([
