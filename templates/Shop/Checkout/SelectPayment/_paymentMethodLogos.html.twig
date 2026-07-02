@@ -1,0 +1,14 @@
+{% set method = hookable_metadata.context.method %}
+{% set config = method.gatewayConfig.config %}
+
+{% if method.gatewayConfig.factoryName == 'saferpay' and config.allowed_payment_methods is defined %}
+    <div class="d-flex gap-2 mt-2">
+        {% for payment_method_name in config.allowed_payment_methods %}
+            <img
+                src="{{ asset('bundles/commerceweaverssyliussaferpayplugin/assets/images/payment_method_logos/' ~ payment_method_name ~ '.svg') }}"
+                alt="{{ payment_method_name }}"
+                height="24"
+            >
+        {% endfor %}
+    </div>
+{% endif %}

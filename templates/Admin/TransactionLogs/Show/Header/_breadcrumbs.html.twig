@@ -1,0 +1,9 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{% set transaction_log = hookable_metadata.context.resource %}
+
+{{ breadcrumbs([
+    { name: 'sylius.ui.dashboard'|trans, url: path('sylius_admin_dashboard'), active: false },
+    { name: 'commerce_weavers_saferpay.ui.transaction_logs'|trans, url: path('commerce_weavers_saferpay_admin_transaction_log_index'), active: false },
+    { name: transaction_log.id, active: true },
+]) }}
