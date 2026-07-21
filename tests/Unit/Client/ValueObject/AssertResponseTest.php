@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\CommerceWeavers\SyliusSaferpayPlugin\Unit\Client\ValueObject;
 
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\AssertResponse;
-use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\Liability;
-use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\PaymentMeans;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\Transaction;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Header\ResponseHeader;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class AssertResponseTest extends TestCase
 {
     /** @test */
-    public function it_creates_assert_response_vo_from_array(): void
+    public function itCreatesAssertResponseVoFromArray(): void
     {
         $response = AssertResponse::fromArray([
             'StatusCode' => 200,
@@ -92,7 +90,7 @@ final class AssertResponseTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_assert_paypal_response_vo_from_array(): void
+    public function itCreatesAssertPaypalResponseVoFromArray(): void
     {
         $response = AssertResponse::fromArray([
             'StatusCode' => 200,
@@ -107,7 +105,7 @@ final class AssertResponseTest extends TestCase
                 'Date' => '2015-01-30T12:45:22.258+01:00',
                 'Amount' => [
                     'Value' => '100',
-                    'CurrencyCode' => 'CHF'
+                    'CurrencyCode' => 'CHF',
                 ],
                 'OrderId' => '000000001',
                 'AcquirerName' => 'PayPal Saferpay Test',
@@ -117,24 +115,24 @@ final class AssertResponseTest extends TestCase
             'PaymentMeans' => [
                 'Brand' => [
                     'PaymentMethod' => 'PAYPAL',
-                    'Name' => 'PayPal'
+                    'Name' => 'PayPal',
                 ],
                 'DisplayText' => 'PayPal',
                 'PayPal' => [
                     'PayerId' => '59e803d5-a697-420b-a9cf-cd73d85bcff5',
                     'SellerProtectionStatus' => 'ELIGIBLE',
-                    'Email' => 'paypal@email.com'
-                ]
+                    'Email' => 'paypal@email.com',
+                ],
             ],
             'Payer' => [
                 'IpAddress' => '1.1.1.1',
-                'IpLocation' => 'PL'
+                'IpLocation' => 'PL',
             ],
             'Liability' => [
                 'LiabilityShift' => false,
                 'LiableEntity' => 'MERCHANT',
-                'InPsd2Scope' => 'UNKNOWN'
-            ]
+                'InPsd2Scope' => 'UNKNOWN',
+            ],
         ]);
 
         $this->assertResponseHeader($response->getResponseHeader());

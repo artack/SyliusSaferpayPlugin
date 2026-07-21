@@ -11,12 +11,12 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class CaptureFactorySpec extends ObjectBehavior
 {
-    function it_implements_capture_factory_interface(): void
+    public function it_implements_capture_factory_interface(): void
     {
         $this->shouldImplement(CaptureFactoryInterface::class);
     }
 
-    function it_creates_new_capture_request(PaymentInterface $payment): void
+    public function it_creates_new_capture_request(PaymentInterface $payment): void
     {
         $this->createNewWithModel($payment->getWrappedObject())->shouldBeLike(new Capture($payment->getWrappedObject()));
     }

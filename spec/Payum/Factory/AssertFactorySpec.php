@@ -11,12 +11,12 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class AssertFactorySpec extends ObjectBehavior
 {
-    function it_implements_assert_factory_interface(): void
+    public function it_implements_assert_factory_interface(): void
     {
         $this->shouldImplement(AssertFactoryInterface::class);
     }
 
-    function it_creates_new_assert_request(PaymentInterface $payment): void
+    public function it_creates_new_assert_request(PaymentInterface $payment): void
     {
         $this->createNewWithModel($payment->getWrappedObject())->shouldBeLike(new Assert($payment->getWrappedObject()));
     }

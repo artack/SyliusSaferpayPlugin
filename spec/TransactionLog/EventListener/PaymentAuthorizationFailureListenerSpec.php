@@ -16,7 +16,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 
 final class PaymentAuthorizationFailureListenerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -25,7 +25,7 @@ final class PaymentAuthorizationFailureListenerSpec extends ObjectBehavior
         $this->beConstructedWith($transactionLogFactory, $transactionLogManager, $paymentRepository, $dateTimeProvider);
     }
 
-    function it_should_persist_a_transaction_log(
+    public function it_should_persist_a_transaction_log(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -62,7 +62,7 @@ final class PaymentAuthorizationFailureListenerSpec extends ObjectBehavior
         $this($paymentAuthorizationFailed);
     }
 
-    function it_throws_exception_once_payment_not_found(
+    public function it_throws_exception_once_payment_not_found(
         PaymentRepositoryInterface $paymentRepository,
     ): void {
         $paymentAuthorizationFailed = new PaymentAuthorizationFailed(
@@ -83,7 +83,7 @@ final class PaymentAuthorizationFailureListenerSpec extends ObjectBehavior
             'StatusCode' => 200,
             'ResponseHeader' => [
                 'SpecVersion' => '1.33',
-                'RequestId' => 'abc123'
+                'RequestId' => 'abc123',
             ],
             'Transaction' => null,
             'PaymentMeans' => null,
@@ -97,8 +97,8 @@ final class PaymentAuthorizationFailureListenerSpec extends ObjectBehavior
                 'PayerMessage' => null,
                 'ProcessorName' => null,
                 'ProcessorResult' => null,
-                'ProcessorMessage' => null
-            ]
+                'ProcessorMessage' => null,
+            ],
         ];
     }
 }

@@ -8,32 +8,32 @@ use PhpSpec\ObjectBehavior;
 
 final class SaferpayApiSpec extends ObjectBehavior
 {
-    function let(): void
+    public function let(): void
     {
         $this->beConstructedWith('username', 'password', 'customer_id', 'terminal_id', true);
     }
 
-    function it_returns_a_username(): void
+    public function it_returns_a_username(): void
     {
         $this->getUsername()->shouldReturn('username');
     }
 
-    function it_returns_a_password(): void
+    public function it_returns_a_password(): void
     {
         $this->getPassword()->shouldReturn('password');
     }
 
-    function it_returns_a_customer_id(): void
+    public function it_returns_a_customer_id(): void
     {
         $this->getCustomerId()->shouldReturn('customer_id');
     }
 
-    function it_returns_a_terminal_id(): void
+    public function it_returns_a_terminal_id(): void
     {
         $this->getTerminalId()->shouldReturn('terminal_id');
     }
 
-    function it_returns_if_it_is_a_sandbox(): void
+    public function it_returns_if_it_is_a_sandbox(): void
     {
         $this->isSandbox()->shouldReturn(true);
     }

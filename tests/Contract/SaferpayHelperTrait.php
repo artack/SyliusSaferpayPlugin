@@ -15,7 +15,7 @@ use Symfony\Component\Panther\Client as PantherClient;
 
 /**
  * @property ?PantherClient $pantherClient
- * @property HttpBrowser $browser
+ * @property HttpBrowser    $browser
  */
 trait SaferpayHelperTrait
 {

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormInterface;
 
 final class SaferpayGatewayConfigurationTypeSpec extends ObjectBehavior
 {
-    function it_disables_password_field_mapping_if_no_passed_along_data(FormInterface $form): void
+    public function it_disables_password_field_mapping_if_no_passed_along_data(FormInterface $form): void
     {
         $event = new PreSubmitEvent($form->getWrappedObject(), []);
 
@@ -25,7 +25,7 @@ final class SaferpayGatewayConfigurationTypeSpec extends ObjectBehavior
         $this->onPreSubmit($event);
     }
 
-    function it_disables_password_field_mapping_if_password_is_null(FormInterface $form): void
+    public function it_disables_password_field_mapping_if_password_is_null(FormInterface $form): void
     {
         $event = new PreSubmitEvent($form->getWrappedObject(), ['password' => null]);
 
@@ -39,7 +39,7 @@ final class SaferpayGatewayConfigurationTypeSpec extends ObjectBehavior
         $this->onPreSubmit($event);
     }
 
-    function it_disables_password_field_mapping_if_password_is_empty(FormInterface $form): void
+    public function it_disables_password_field_mapping_if_password_is_empty(FormInterface $form): void
     {
         $event = new PreSubmitEvent($form->getWrappedObject(), ['password' => '']);
 
@@ -53,7 +53,7 @@ final class SaferpayGatewayConfigurationTypeSpec extends ObjectBehavior
         $this->onPreSubmit($event);
     }
 
-    function it_does_not_disable_password_field_mapping_if_password_is_not_empty(FormInterface $form): void
+    public function it_does_not_disable_password_field_mapping_if_password_is_not_empty(FormInterface $form): void
     {
         $event = new PreSubmitEvent($form->getWrappedObject(), ['password' => 'not empty']);
 

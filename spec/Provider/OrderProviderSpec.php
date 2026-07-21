@@ -11,12 +11,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class OrderProviderSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository): void
+    public function let(OrderRepositoryInterface $orderRepository): void
     {
         $this->beConstructedWith($orderRepository);
     }
 
-    function it_throws_an_exception_when_order_with_given_token_does_not_exist_for_assert(
+    public function it_throws_an_exception_when_order_with_given_token_does_not_exist_for_assert(
         OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneByTokenValue('TOKEN')->willReturn(null);
@@ -27,7 +27,7 @@ final class OrderProviderSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_when_order_with_given_token_does_not_exist_for_capture(
+    public function it_throws_an_exception_when_order_with_given_token_does_not_exist_for_capture(
         OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneByTokenValue('TOKEN')->willReturn(null);
@@ -38,7 +38,7 @@ final class OrderProviderSpec extends ObjectBehavior
         ;
     }
 
-    function it_provides_order_for_assert(
+    public function it_provides_order_for_assert(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
     ): void {
@@ -47,7 +47,7 @@ final class OrderProviderSpec extends ObjectBehavior
         $this->provideForAssert('TOKEN')->shouldReturn($order);
     }
 
-    function it_provides_order_for_capture(
+    public function it_provides_order_for_capture(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
     ): void {

@@ -15,33 +15,33 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class ResolveNextRouteActionSpec extends ObjectBehavior
 {
-    function let(StatusCheckerInterface $statusChecker): void
+    public function let(StatusCheckerInterface $statusChecker): void
     {
         $this->beConstructedWith($statusChecker);
     }
 
-    function it_supports_resolve_next_route_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_resolve_next_route_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new ResolveNextRoute($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_resolve_next_route(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_resolve_next_route(SyliusPaymentInterface $payment): void
     {
         $request = new Authorize($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_resolve_next_route_request_with_wrong_model(PayumPaymentInterface $payumPayment): void
+    public function it_does_not_support_resolve_next_route_request_with_wrong_model(PayumPaymentInterface $payumPayment): void
     {
         $request = new ResolveNextRoute($payumPayment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -49,7 +49,7 @@ final class ResolveNextRouteActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_sets_prepare_assert_route_when_payment_is_new(
+    public function it_sets_prepare_assert_route_when_payment_is_new(
         StatusCheckerInterface $statusChecker,
         ResolveNextRoute $request,
         SyliusPaymentInterface $payment,
@@ -66,7 +66,7 @@ final class ResolveNextRouteActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_sets_prepare_capture_route_when_payment_is_authorized(
+    public function it_sets_prepare_capture_route_when_payment_is_authorized(
         StatusCheckerInterface $statusChecker,
         ResolveNextRoute $request,
         SyliusPaymentInterface $payment,
@@ -84,7 +84,7 @@ final class ResolveNextRouteActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_sets_thank_you_route_when_payment_is_captured(
+    public function it_sets_thank_you_route_when_payment_is_captured(
         StatusCheckerInterface $statusChecker,
         ResolveNextRoute $request,
         SyliusPaymentInterface $payment,
@@ -104,7 +104,7 @@ final class ResolveNextRouteActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_sets_admin_show_order_route_when_payment_is_refunded(
+    public function it_sets_admin_show_order_route_when_payment_is_refunded(
         StatusCheckerInterface $statusChecker,
         ResolveNextRoute $request,
         SyliusPaymentInterface $payment,
@@ -125,7 +125,7 @@ final class ResolveNextRouteActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_sets_show_order_route_when_payment_status_cannot_be_matched(
+    public function it_sets_show_order_route_when_payment_status_cannot_be_matched(
         StatusCheckerInterface $statusChecker,
         ResolveNextRoute $request,
         SyliusPaymentInterface $payment,

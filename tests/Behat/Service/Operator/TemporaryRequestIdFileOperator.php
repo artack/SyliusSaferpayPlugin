@@ -10,7 +10,7 @@ final class TemporaryRequestIdFileOperator implements TemporaryRequestIdOperator
 
     public function __construct(string $projectDirectory)
     {
-        $this->temporaryFilePath = $projectDirectory . '/var/temporaryRequestId.txt';
+        $this->temporaryFilePath = $projectDirectory.'/var/temporaryRequestId.txt';
     }
 
     public function getRequestId(): string

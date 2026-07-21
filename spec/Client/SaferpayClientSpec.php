@@ -17,7 +17,6 @@ use Payum\Core\Security\TokenInterface;
 use PhpSpec\ObjectBehavior;
 use Psr\Log\LoggerInterface;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\HttpClient\Exception\TimeoutException;
@@ -27,7 +26,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class SaferpayClientSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -43,12 +42,12 @@ final class SaferpayClientSpec extends ObjectBehavior
         );
     }
 
-    function it_implements_saferpay_client_interface(): void
+    public function it_implements_saferpay_client_interface(): void
     {
         $this->shouldHaveType(SaferpayClientInterface::class);
     }
 
-    function it_performs_authorize_request(
+    public function it_performs_authorize_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -78,7 +77,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Initialize',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -105,7 +104,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->authorize($payment, $token)->shouldBeAnInstanceOf(AuthorizeResponse::class);
     }
 
-    function it_dispatches_a_failed_event_once_the_authorization_fails(
+    public function it_dispatches_a_failed_event_once_the_authorization_fails(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -137,7 +136,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Initialize',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -164,7 +163,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->authorize($payment, $token)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_handles_failed_authorize_request_with_content_different_than_json(
+    public function it_handles_failed_authorize_request_with_content_different_than_json(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -196,7 +195,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Initialize',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -223,7 +222,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->authorize($payment, $token)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_performs_assert_request(
+    public function it_performs_assert_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -261,7 +260,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Assert',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -288,7 +287,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->assert($payment)->shouldBeAnInstanceOf(AssertResponse::class);
     }
 
-    function it_performs_failed_assert_request(
+    public function it_performs_failed_assert_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -326,7 +325,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Assert',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -353,7 +352,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->assert($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_handles_failed_assert_request_with_content_different_than_json(
+    public function it_handles_failed_assert_request_with_content_different_than_json(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -391,7 +390,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/PaymentPage/Assert',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -418,7 +417,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->assert($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_performs_capture_request(
+    public function it_performs_capture_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -448,7 +447,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Capture',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -475,7 +474,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->capture($payment)->shouldBeAnInstanceOf(CaptureResponse::class);
     }
 
-    function it_dispatches_a_failed_event_once_the_capture_fails(
+    public function it_dispatches_a_failed_event_once_the_capture_fails(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -505,7 +504,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Capture',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -532,7 +531,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->capture($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_handles_failed_capture_request_with_content_different_than_json(
+    public function it_handles_failed_capture_request_with_content_different_than_json(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -562,7 +561,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Capture',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -590,7 +589,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->capture($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_performs_refund_request(
+    public function it_performs_refund_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -637,7 +636,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Refund',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -664,7 +663,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->refund($payment)->shouldBeAnInstanceOf(RefundResponse::class);
     }
 
-    function it_handles_failed_refund_request(
+    public function it_handles_failed_refund_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -711,7 +710,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Refund',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -738,7 +737,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->refund($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_handles_failed_refund_request_with_content_different_than_json(
+    public function it_handles_failed_refund_request_with_content_different_than_json(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -785,7 +784,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/Payment/v1/Transaction/Refund',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -812,7 +811,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         $this->refund($payment)->shouldBeAnInstanceOf(ErrorResponse::class);
     }
 
-    function it_performs_get_terminal_request(
+    public function it_performs_get_terminal_request(
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
         SaferpayApiBaseUrlResolverInterface $saferpayApiBaseUrlResolver,
@@ -839,7 +838,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/rest/customers/CUSTOMER_ID/terminals/TERMINAL_ID',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                         'Saferpay-ApiVersion' => '1.33',
@@ -872,7 +871,7 @@ final class SaferpayClientSpec extends ObjectBehavior
         ]);
     }
 
-    function it_logs_exceptions_if_something_fails(
+    public function it_logs_exceptions_if_something_fails(
         LoggerInterface $logger,
         HttpClientInterface $client,
         SaferpayClientBodyFactoryInterface $saferpayClientBodyFactory,
@@ -899,7 +898,7 @@ final class SaferpayClientSpec extends ObjectBehavior
                 'https://test.saferpay.com/api/rest/customers/CUSTOMER_ID/terminals/TERMINAL_ID',
                 [
                     'headers' => [
-                        'Authorization' => 'Basic ' . base64_encode('USERNAME:PASSWORD'),
+                        'Authorization' => 'Basic '.base64_encode('USERNAME:PASSWORD'),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                         'Saferpay-ApiVersion' => '1.33',
@@ -1149,9 +1148,6 @@ final class SaferpayClientSpec extends ObjectBehavior
         RESPONSE;
     }
 
-    /**
-     * @return array
-     */
     public function getExampleCapturePayload(): array
     {
         return [

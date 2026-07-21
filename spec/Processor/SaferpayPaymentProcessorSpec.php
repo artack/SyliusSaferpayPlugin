@@ -17,7 +17,7 @@ use Symfony\Component\Lock\LockInterface;
 
 final class SaferpayPaymentProcessorSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         LoggerInterface $logger,
@@ -25,7 +25,7 @@ final class SaferpayPaymentProcessorSpec extends ObjectBehavior
         $this->beConstructedWith($lockFactory, $entityManager, $logger);
     }
 
-    function it_sets_processing_as_true_on_payment(
+    public function it_sets_processing_as_true_on_payment(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         PaymentInterface $payment,
@@ -45,7 +45,7 @@ final class SaferpayPaymentProcessorSpec extends ObjectBehavior
         $this->lock($payment);
     }
 
-    function it_throws_an_exception_if_status_is_not_set(
+    public function it_throws_an_exception_if_status_is_not_set(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         PaymentInterface $payment,
@@ -67,7 +67,7 @@ final class SaferpayPaymentProcessorSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_if_payment_is_processing(
+    public function it_throws_an_exception_if_payment_is_processing(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         PaymentInterface $payment,
@@ -89,7 +89,7 @@ final class SaferpayPaymentProcessorSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_if_lock_cannot_be_acquired(
+    public function it_throws_an_exception_if_lock_cannot_be_acquired(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         PaymentInterface $payment,
@@ -111,7 +111,7 @@ final class SaferpayPaymentProcessorSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_if_acquiring_lock_throws_exception(
+    public function it_throws_an_exception_if_acquiring_lock_throws_exception(
         LockFactory $lockFactory,
         EntityManagerInterface $entityManager,
         PaymentInterface $payment,

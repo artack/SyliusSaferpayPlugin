@@ -17,7 +17,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 
 final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -33,7 +33,7 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
+    public function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
         TransactionLogFactoryInterface $transactionLogFactory,
         PaymentRepositoryInterface $paymentRepository,
         PaymentInterface $payment,
@@ -50,7 +50,7 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
         $transactionLogFactory->createInformationalLog()->shouldNotBeCalled();
     }
 
-    function it_persists_a_transaction_log(
+    public function it_persists_a_transaction_log(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -90,7 +90,7 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
         $this($paymentAssertionSucceeded);
     }
 
-    function it_throws_exception_once_payment_not_found(
+    public function it_throws_exception_once_payment_not_found(
         PaymentRepositoryInterface $paymentRepository,
     ): void {
         $paymentAssertionSucceeded = new PaymentAssertionSucceeded(
@@ -111,7 +111,7 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
             'StatusCode' => 200,
             'ResponseHeader' => [
                 'SpecVersion' => '1.33',
-                'RequestId' => 'abc123'
+                'RequestId' => 'abc123',
             ],
             'Transaction' => [
                 'Type' => 'PURCHASE',
@@ -120,17 +120,17 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
                 'Date' => '2023-05-06T12:34:56Z',
                 'Amount' => [
                     'Value' => 1000,
-                    'CurrencyCode' => 'USD'
+                    'CurrencyCode' => 'USD',
                 ],
                 'AcquirerName' => 'ExampleAcquirer',
                 'AcquirerReference' => 'ref123',
                 'SixTransactionReference' => 'sixref123',
-                'ApprovalCode' => 'appr123'
+                'ApprovalCode' => 'appr123',
             ],
             'PaymentMeans' => [
                 'Brand' => [
                     'PaymentMethod' => 'CARD',
-                    'Name' => 'VISA'
+                    'Name' => 'VISA',
                 ],
                 'DisplayText' => 'Visa **** 1234',
                 'Card' => [
@@ -138,8 +138,8 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
                     'ExpYear' => '2025',
                     'ExpMonth' => '12',
                     'HolderName' => 'John Doe',
-                    'CountryCode' => 'US'
-                ]
+                    'CountryCode' => 'US',
+                ],
             ],
             'Liability' => [
                 'LiabilityShift' => true,
@@ -147,10 +147,10 @@ final class PaymentAssertionSuccessListenerSpec extends ObjectBehavior
                 'ThreeDs' => [
                     'Authenticated' => true,
                     'LiabilityShift' => true,
-                    'Xid' => '3dsxid123'
-                ]
+                    'Xid' => '3dsxid123',
+                ],
             ],
-            'Error' => null
+            'Error' => null,
         ];
     }
 }

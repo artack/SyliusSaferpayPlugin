@@ -23,6 +23,7 @@ use CommerceWeavers\SyliusSaferpayPlugin\Payum\Status\StatusMarker;
 use CommerceWeavers\SyliusSaferpayPlugin\Payum\Status\StatusMarkerInterface;
 use Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator) {

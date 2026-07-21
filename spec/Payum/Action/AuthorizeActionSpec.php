@@ -19,33 +19,33 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class AuthorizeActionSpec extends ObjectBehavior
 {
-    function let(SaferpayClientInterface $saferpayClient): void
+    public function let(SaferpayClientInterface $saferpayClient): void
     {
         $this->beConstructedWith($saferpayClient);
     }
 
-    function it_supports_authorize_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_authorize_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new Authorize($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_authorize(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_authorize(SyliusPaymentInterface $payment): void
     {
         $request = new Capture($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_authorize_request_with_wrong_model(PayumPaymentInterface $payment): void
+    public function it_does_not_support_authorize_request_with_wrong_model(PayumPaymentInterface $payment): void
     {
         $request = new Authorize($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -53,7 +53,7 @@ final class AuthorizeActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_when_request_has_no_token(
+    public function it_throws_an_exception_when_request_has_no_token(
         SyliusPaymentInterface $payment,
         Authorize $request,
     ): void {
@@ -66,7 +66,7 @@ final class AuthorizeActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_does_nothing_when_the_payment_states_is_different_than_new(
+    public function it_does_nothing_when_the_payment_states_is_different_than_new(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         Authorize $request,
@@ -80,7 +80,7 @@ final class AuthorizeActionSpec extends ObjectBehavior
         $saferpayClient->authorize($payment, $token)->shouldNotBeCalled();
     }
 
-    function it_authorizes_the_payment(
+    public function it_authorizes_the_payment(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         Authorize $request,
@@ -106,7 +106,7 @@ final class AuthorizeActionSpec extends ObjectBehavior
             ->setDetails([
                 'request_id' => 'b27de121-ffa0-4f1d-b7aa-b48109a88486',
                 'saferpay_token' => 'TOKEN',
-                'status' => StatusAction::STATUS_NEW
+                'status' => StatusAction::STATUS_NEW,
             ])
             ->shouldBeCalled()
         ;
@@ -114,7 +114,7 @@ final class AuthorizeActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_marks_the_payment_as_failed_if_there_is_different_status_code_than_ok(
+    public function it_marks_the_payment_as_failed_if_there_is_different_status_code_than_ok(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         Authorize $request,

@@ -12,7 +12,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class FailedResponseHandlerSpec extends ObjectBehavior
 {
-    function it_handles_the_cancelled_payment(
+    public function it_handles_the_cancelled_payment(
         PaymentInterface $payment,
         ErrorResponse $response,
     ): void {
@@ -34,7 +34,7 @@ final class FailedResponseHandlerSpec extends ObjectBehavior
         $this->handle($payment, $response);
     }
 
-    function it_handles_the_failed_payment(
+    public function it_handles_the_failed_payment(
         PaymentInterface $payment,
         ErrorResponse $response,
     ): void {

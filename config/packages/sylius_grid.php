@@ -47,7 +47,7 @@ return static function (ContainerConfigurator $containerConfigurator) {
                         'options' => [
                             'template' => '@CommerceWeaversSyliusSaferpayPlugin/Admin/TransactionLogs/Grid/Field/_type.html.twig',
                         ],
-                    ]
+                    ],
                 ],
                 'filters' => [
                     'occurredAt' => [
@@ -60,7 +60,7 @@ return static function (ContainerConfigurator $containerConfigurator) {
                         'options' => [
                             'fields' => [
                                 'payment.order.number',
-                            ],                       
+                            ],
                         ],
                     ],
                 ],

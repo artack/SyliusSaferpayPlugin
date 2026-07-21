@@ -24,9 +24,7 @@ final class SaferpayPaymentMethodsProvider implements SaferpayPaymentMethodsProv
         $terminal = $this->client->getTerminal($gatewayConfig);
 
         if ((int) ($terminal['StatusCode'] ?? Response::HTTP_OK) >= Response::HTTP_BAD_REQUEST) {
-            throw new SaferpayPaymentMethodsUnavailableException(
-                (string) ($terminal['ErrorMessage'] ?? $terminal['error'] ?? 'Unknown error'),
-            );
+            throw new SaferpayPaymentMethodsUnavailableException((string) ($terminal['ErrorMessage'] ?? $terminal['error'] ?? 'Unknown error'));
         }
 
         if (!isset($terminal['PaymentMethods'])) {

@@ -10,7 +10,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 final class CommerceWeaversSyliusSaferpayExtensionTest extends AbstractExtensionTestCase
 {
     /** @test */
-    public function it_loads_parameters_properly(): void
+    public function itLoadsParametersProperly(): void
     {
         $this->configureContainer();
         $this->load();

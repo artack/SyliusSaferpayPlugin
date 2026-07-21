@@ -14,33 +14,33 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class StatusActionSpec extends ObjectBehavior
 {
-    function let(StatusMarkerInterface $statusMarker): void
+    public function let(StatusMarkerInterface $statusMarker): void
     {
         $this->beConstructedWith($statusMarker);
     }
 
-    function it_supports_get_status_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_get_status_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new GetStatus($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_get_status(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_get_status(SyliusPaymentInterface $payment): void
     {
         $request = new Authorize($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_get_status_request_with_wrong_model(PayumPaymentInterface $payumPayment): void
+    public function it_does_not_support_get_status_request_with_wrong_model(PayumPaymentInterface $payumPayment): void
     {
         $request = new GetStatus($payumPayment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -48,7 +48,7 @@ final class StatusActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_marks_new_on_request_when_payment_status_is_new(
+    public function it_marks_new_on_request_when_payment_status_is_new(
         GetStatus $request,
         SyliusPaymentInterface $payment,
         StatusMarkerInterface $statusMarker,
@@ -61,7 +61,7 @@ final class StatusActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_marks_authorized_on_request_when_payment_status_is_authorized(
+    public function it_marks_authorized_on_request_when_payment_status_is_authorized(
         GetStatus $request,
         SyliusPaymentInterface $payment,
         StatusMarkerInterface $statusMarker,
@@ -76,7 +76,7 @@ final class StatusActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_marks_captured_on_request_when_payment_status_is_captured(
+    public function it_marks_captured_on_request_when_payment_status_is_captured(
         GetStatus $request,
         SyliusPaymentInterface $payment,
         StatusMarkerInterface $statusMarker,
@@ -93,7 +93,7 @@ final class StatusActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_marks_cancelled_on_request_when_payment_status_is_captured(
+    public function it_marks_cancelled_on_request_when_payment_status_is_captured(
         GetStatus $request,
         SyliusPaymentInterface $payment,
         StatusMarkerInterface $statusMarker,
@@ -112,7 +112,7 @@ final class StatusActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_marks_failed_on_request_when_payment_status_cannot_be_matched(
+    public function it_marks_failed_on_request_when_payment_status_cannot_be_matched(
         GetStatus $request,
         SyliusPaymentInterface $payment,
         StatusMarkerInterface $statusMarker,

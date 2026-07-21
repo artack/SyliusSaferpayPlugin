@@ -24,7 +24,7 @@ use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
 final class CapturePaymentHandlerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,
@@ -42,14 +42,14 @@ final class CapturePaymentHandlerSpec extends ObjectBehavior
         );
     }
 
-    function it_throws_an_exception_if_the_token_is_not_found(StorageInterface $tokenStorage): void
+    public function it_throws_an_exception_if_the_token_is_not_found(StorageInterface $tokenStorage): void
     {
         $tokenStorage->find('token')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new CapturePaymentCommand('token')]);
     }
 
-    function it_executes_capture_flow_and_dispatches_command_retrieved_from_resolve_next_command_action(
+    public function it_executes_capture_flow_and_dispatches_command_retrieved_from_resolve_next_command_action(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,
@@ -89,7 +89,7 @@ final class CapturePaymentHandlerSpec extends ObjectBehavior
         $this(new CapturePaymentCommand('capture_token'));
     }
 
-    function it_executes_capture_flow_and_does_not_dispatch_command_retrieved_from_resolve_next_command_action_if_null(
+    public function it_executes_capture_flow_and_does_not_dispatch_command_retrieved_from_resolve_next_command_action_if_null(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,

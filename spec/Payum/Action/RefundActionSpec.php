@@ -23,33 +23,33 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class RefundActionSpec extends ObjectBehavior
 {
-    function let(SaferpayClientInterface $saferpayClient): void
+    public function let(SaferpayClientInterface $saferpayClient): void
     {
         $this->beConstructedWith($saferpayClient);
     }
 
-    function it_supports_refund_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_refund_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new Refund($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_refund(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_refund(SyliusPaymentInterface $payment): void
     {
         $request = new Capture($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_refund_request_with_wrong_model(PayumPaymentInterface $payment): void
+    public function it_does_not_support_refund_request_with_wrong_model(PayumPaymentInterface $payment): void
     {
         $request = new Refund($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -57,7 +57,7 @@ final class RefundActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_when_request_has_no_token(
+    public function it_throws_an_exception_when_request_has_no_token(
         SyliusPaymentInterface $payment,
         Authorize $request,
     ): void {
@@ -70,7 +70,7 @@ final class RefundActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_refunds_the_payment(
+    public function it_refunds_the_payment(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         RefundInterface $request,
@@ -112,7 +112,7 @@ final class RefundActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_does_not_capture_if_the_payment_has_been_captured_during_refund(
+    public function it_does_not_capture_if_the_payment_has_been_captured_during_refund(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         RefundInterface $request,
@@ -144,7 +144,7 @@ final class RefundActionSpec extends ObjectBehavior
         $this->execute($request->getWrappedObject());
     }
 
-    function it_throws_the_payment_refund_failed_exception_if_there_is_different_status_code_than_ok_after_authorizing_the_refund(
+    public function it_throws_the_payment_refund_failed_exception_if_there_is_different_status_code_than_ok_after_authorizing_the_refund(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         RefundInterface $request,
@@ -162,7 +162,7 @@ final class RefundActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_the_payment_refund_failed_exception_if_there_is_different_status_code_than_ok_after_capturing_the_refund(
+    public function it_throws_the_payment_refund_failed_exception_if_there_is_different_status_code_than_ok_after_capturing_the_refund(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         RefundInterface $request,

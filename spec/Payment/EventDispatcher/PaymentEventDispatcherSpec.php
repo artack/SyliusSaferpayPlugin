@@ -8,13 +8,13 @@ use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\AssertResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\AuthorizeResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\CaptureResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\ErrorResponse;
+use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\RefundResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentAssertionFailed;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentAssertionSucceeded;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentAuthorizationFailed;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentAuthorizationSucceeded;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentCaptureFailed;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentCaptureSucceeded;
-use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\RefundResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentRefundFailed;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\Event\PaymentRefundSucceeded;
 use CommerceWeavers\SyliusSaferpayPlugin\Payment\EventDispatcher\PaymentEventDispatcher;
@@ -26,17 +26,17 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PaymentEventDispatcherSpec extends ObjectBehavior
 {
-    function let(MessageBusInterface $eventBus): void
+    public function let(MessageBusInterface $eventBus): void
     {
         $this->beConstructedWith($eventBus);
     }
 
-    function it_implements_payment_event_dispatcher_interface(): void
+    public function it_implements_payment_event_dispatcher_interface(): void
     {
         $this->shouldHaveType(PaymentEventDispatcher::class);
     }
 
-    function it_dispatches_payment_authorization_succeeded_event(
+    public function it_dispatches_payment_authorization_succeeded_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -48,8 +48,8 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $eventBus
             ->dispatch(Argument::that(function (PaymentAuthorizationSucceeded $event) use ($payload, $response) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/PaymentPage/Initialize'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/PaymentPage/Initialize' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
                     && $event->getResponseData() === $response
                 ;
@@ -66,7 +66,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_authorization_failed_event(
+    public function it_dispatches_payment_authorization_failed_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -76,12 +76,12 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $payment->getId()->willReturn(1);
 
         $eventBus
-            ->dispatch(Argument::that(function (PaymentAuthorizationFailed $event) use ($payload, $response) {
+            ->dispatch(Argument::that(function (PaymentAuthorizationFailed $event) use ($payload) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/PaymentPage/Initialize'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/PaymentPage/Initialize' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
-                    && $event->getResponseData()['Name'] === 'CANNOT_AUTHORIZED'
+                    && 'CANNOT_AUTHORIZED' === $event->getResponseData()['Name']
                 ;
             }))
             ->shouldBeCalled()
@@ -96,7 +96,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_assertion_succeeded_event(
+    public function it_dispatches_payment_assertion_succeeded_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -108,8 +108,8 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $eventBus
             ->dispatch(Argument::that(function (PaymentAssertionSucceeded $event) use ($payload, $response) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/PaymentPage/Assert'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/PaymentPage/Assert' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
                     && $event->getResponseData() == $response
                 ;
@@ -126,7 +126,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_assertion_failed_event(
+    public function it_dispatches_payment_assertion_failed_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -140,19 +140,19 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
                 $response = $event->getResponseData();
 
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/PaymentPage/Assert'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/PaymentPage/Assert' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
-                    && $response['StatusCode'] === 402
-                    && $response['Name'] === '3DS_AUTHENTICATION_FAILED'
-                    && $response['Message'] === '3D-Secure authentication failed'
-                    && $response['Behavior'] === 'DO_NOT_RETRY'
-                    && $response['TransactionId'] === 'Q3hd5IbzlnKpvAICv2QdA72QlA1b'
-                    && $response['OrderId'] === '000000042'
-                    && $response['PayerMessage'] === 'Card holder information -> Failed'
-                    && $response['ProcessorName'] === null
-                    && $response['ProcessorResult'] === null
-                    && $response['ProcessorMessage'] === null
+                    && 402 === $response['StatusCode']
+                    && '3DS_AUTHENTICATION_FAILED' === $response['Name']
+                    && '3D-Secure authentication failed' === $response['Message']
+                    && 'DO_NOT_RETRY' === $response['Behavior']
+                    && 'Q3hd5IbzlnKpvAICv2QdA72QlA1b' === $response['TransactionId']
+                    && '000000042' === $response['OrderId']
+                    && 'Card holder information -> Failed' === $response['PayerMessage']
+                    && null === $response['ProcessorName']
+                    && null === $response['ProcessorResult']
+                    && null === $response['ProcessorMessage']
                 ;
             }))
             ->shouldBeCalled()
@@ -167,7 +167,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_capture_succeeded_event(
+    public function it_dispatches_payment_capture_succeeded_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -179,8 +179,8 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $eventBus
             ->dispatch(Argument::that(function (PaymentCaptureSucceeded $event) use ($payload, $response) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/Transaction/Capture'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/Transaction/Capture' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
                     && $event->getResponseData() === $response
                 ;
@@ -197,7 +197,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_capture_failed_event(
+    public function it_dispatches_payment_capture_failed_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -207,13 +207,13 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $payment->getId()->willReturn(1);
 
         $eventBus
-            ->dispatch(Argument::that(function (PaymentCaptureFailed $event) use ($payload, $response) {
+            ->dispatch(Argument::that(function (PaymentCaptureFailed $event) use ($payload) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/Transaction/Capture'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/Transaction/Capture' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
-                    && $event->getResponseData()['Name'] === 'CAPTURE_FAILED'
-                    && $event->getResponseData()['FailedOperation'] === 'Capture'
+                    && 'CAPTURE_FAILED' === $event->getResponseData()['Name']
+                    && 'Capture' === $event->getResponseData()['FailedOperation']
                 ;
             }))
             ->shouldBeCalled()
@@ -228,7 +228,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_refund_succeeded_event(
+    public function it_dispatches_payment_refund_succeeded_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -240,8 +240,8 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         $eventBus
             ->dispatch(Argument::that(function (PaymentRefundSucceeded $event) use ($payload, $response) {
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/Transaction/Refund'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/Transaction/Refund' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
                     && $event->getResponseData() == $response
                 ;
@@ -258,7 +258,7 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
         );
     }
 
-    function it_dispatches_payment_refund_failed_event(
+    public function it_dispatches_payment_refund_failed_event(
         MessageBusInterface $eventBus,
         PaymentInterface $payment,
     ): void {
@@ -272,19 +272,19 @@ final class PaymentEventDispatcherSpec extends ObjectBehavior
                 $response = $event->getResponseData();
 
                 return
-                    $event->getPaymentId() === 1
-                    && $event->getRequestUrl() === 'Payment/v1/Transaction/Refund'
+                    1 === $event->getPaymentId()
+                    && 'Payment/v1/Transaction/Refund' === $event->getRequestUrl()
                     && $event->getRequestBody() === $payload
-                    && $response['StatusCode'] === 402
-                    && $response['Name'] === 'TRANSACTION_NOT_FOUND'
-                    && $response['Message'] === 'Transaction not found'
-                    && $response['Behavior'] === 'DO_NOT_RETRY'
-                    && $response['TransactionId'] === null
-                    && $response['OrderId'] === null
-                    && $response['PayerMessage'] === null
-                    && $response['ProcessorName'] === null
-                    && $response['ProcessorResult'] === null
-                    && $response['ProcessorMessage'] === null
+                    && 402 === $response['StatusCode']
+                    && 'TRANSACTION_NOT_FOUND' === $response['Name']
+                    && 'Transaction not found' === $response['Message']
+                    && 'DO_NOT_RETRY' === $response['Behavior']
+                    && null === $response['TransactionId']
+                    && null === $response['OrderId']
+                    && null === $response['PayerMessage']
+                    && null === $response['ProcessorName']
+                    && null === $response['ProcessorResult']
+                    && null === $response['ProcessorMessage']
                 ;
             }))
             ->shouldBeCalled()

@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PrepareAssertActionSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         RequestConfigurationFactoryInterface $requestConfigurationFactory,
         MetadataInterface $orderMetadata,
         PaymentProviderInterface $paymentProvider,
@@ -47,7 +47,7 @@ final class PrepareAssertActionSpec extends ObjectBehavior
         );
     }
 
-    function it_throws_an_exception_when_last_payment_for_given_order_token_value_does_not_exist(
+    public function it_throws_an_exception_when_last_payment_for_given_order_token_value_does_not_exist(
         PaymentProviderInterface $paymentProvider,
         PaymentInterface $payment,
         Request $request,
@@ -58,7 +58,7 @@ final class PrepareAssertActionSpec extends ObjectBehavior
         $this->shouldThrow(PaymentAlreadyProcessedException::class)->during('__invoke', [$request, 'TOKEN']);
     }
 
-    function it_returns_to_thank_you_page_if_payment_is_already_processed(
+    public function it_returns_to_thank_you_page_if_payment_is_already_processed(
         PaymentProviderInterface $paymentProvider,
         SaferpayPaymentProcessorInterface $saferpayPaymentProcessor,
         UrlGeneratorInterface $router,
@@ -76,7 +76,7 @@ final class PrepareAssertActionSpec extends ObjectBehavior
         $this($request, 'TOKEN')->shouldBeLike(new RedirectResponse('https://after-unsuccessful-payment.com/TOKEN'));
     }
 
-    function it_returns_to_thank_you_page_if_payment_is_being_processed(
+    public function it_returns_to_thank_you_page_if_payment_is_being_processed(
         PaymentProviderInterface $paymentProvider,
         SaferpayPaymentProcessorInterface $saferpayPaymentProcessor,
         UrlGeneratorInterface $router,
@@ -94,7 +94,7 @@ final class PrepareAssertActionSpec extends ObjectBehavior
         $this($request, 'TOKEN')->shouldBeLike(new RedirectResponse('https://after-unsuccessful-payment.com/TOKEN'));
     }
 
-    function it_returns_redirect_response_to_target_url_from_token(
+    public function it_returns_redirect_response_to_target_url_from_token(
         PaymentProviderInterface $paymentProvider,
         SaferpayPaymentProcessorInterface $saferpayPaymentProcessor,
         TokenProviderInterface $tokenProvider,

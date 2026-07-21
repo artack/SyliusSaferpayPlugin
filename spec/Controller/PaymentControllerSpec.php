@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 final class PaymentControllerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         BaseResourceController $decoratedResourceController,
         MetadataInterface $metadata,
         RequestConfigurationFactoryInterface $requestConfigurationFactory,
@@ -27,7 +27,7 @@ final class PaymentControllerSpec extends ObjectBehavior
         $this->beConstructedWith($decoratedResourceController, $metadata, $requestConfigurationFactory, $redirectHandler);
     }
 
-    function it_handles_payment_refund_failed_exception_during_applying_state_machine_transition(
+    public function it_handles_payment_refund_failed_exception_during_applying_state_machine_transition(
         BaseResourceController $decoratedResourceController,
         MetadataInterface $metadata,
         RequestConfigurationFactoryInterface $requestConfigurationFactory,

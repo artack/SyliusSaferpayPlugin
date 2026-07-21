@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class DebugModeResolverSpec extends ObjectBehavior
 {
-    function it_returns_true_when_debug_mode_is_set_to_true(
+    public function it_returns_true_when_debug_mode_is_set_to_true(
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
         GatewayConfigInterface $gatewayConfig,
@@ -23,7 +23,7 @@ final class DebugModeResolverSpec extends ObjectBehavior
         $this->isEnabled($payment)->shouldReturn(true);
     }
 
-    function it_returns_false_when_debug_mode_is_set_to_false(
+    public function it_returns_false_when_debug_mode_is_set_to_false(
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
         GatewayConfigInterface $gatewayConfig,
@@ -35,7 +35,7 @@ final class DebugModeResolverSpec extends ObjectBehavior
         $this->isEnabled($payment)->shouldReturn(false);
     }
 
-    function it_returns_false_when_debug_mode_is_not_set(
+    public function it_returns_false_when_debug_mode_is_not_set(
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
         GatewayConfigInterface $gatewayConfig,

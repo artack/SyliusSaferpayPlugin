@@ -11,12 +11,12 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class RefundFactorySpec extends ObjectBehavior
 {
-    function it_implements_refund_factory_interface(): void
+    public function it_implements_refund_factory_interface(): void
     {
         $this->shouldImplement(RefundFactoryInterface::class);
     }
 
-    function it_creates_new_refund_request(PaymentInterface $payment): void
+    public function it_creates_new_refund_request(PaymentInterface $payment): void
     {
         $this->createNewWithModel($payment->getWrappedObject())->shouldBeLike(new Refund($payment->getWrappedObject()));
     }

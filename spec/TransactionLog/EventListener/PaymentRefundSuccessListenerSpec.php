@@ -17,7 +17,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 
 final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -33,7 +33,7 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
+    public function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
         TransactionLogFactoryInterface $transactionLogFactory,
         PaymentRepositoryInterface $paymentRepository,
         PaymentInterface $payment,
@@ -50,7 +50,7 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
         $transactionLogFactory->createInformationalLog()->shouldNotBeCalled();
     }
 
-    function it_persists_a_transaction_log(
+    public function it_persists_a_transaction_log(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -93,7 +93,7 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
         $this($paymentRefundSucceeded);
     }
 
-    function it_throws_an_exception_once_payment_not_found(
+    public function it_throws_an_exception_once_payment_not_found(
         PaymentRepositoryInterface $paymentRepository,
     ): void {
         $paymentRefundSucceeded = new PaymentRefundSucceeded(
@@ -114,7 +114,7 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
             'Refund' => [
                 'Amount' => [
                     'Value' => 1000,
-                    'CurrencyCode' => 'USD'
+                    'CurrencyCode' => 'USD',
                 ],
             ],
             'CaptureReference' => [
@@ -129,7 +129,7 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
             'StatusCode' => 200,
             'ResponseHeader' => [
                 'SpecVersion' => '1.33',
-                'RequestId' => 'abc123'
+                'RequestId' => 'abc123',
             ],
             'Transaction' => [
                 'Type' => 'REFUND',
@@ -138,20 +138,20 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
                 'Date' => '2023-05-06T12:34:56Z',
                 'Amount' => [
                     'Value' => 1000,
-                    'CurrencyCode' => 'USD'
+                    'CurrencyCode' => 'USD',
                 ],
                 'AcquirerName' => 'ExampleAcquirer',
                 'AcquirerReference' => 'ref123',
                 'SixTransactionReference' => 'sixref123',
                 'ApprovalCode' => 'appr123',
-                "IssuerReference" => [
-                    "TransactionStamp" => "1212121212121212121212",
+                'IssuerReference' => [
+                    'TransactionStamp' => '1212121212121212121212',
                 ],
             ],
             'PaymentMeans' => [
                 'Brand' => [
                     'PaymentMethod' => 'CARD',
-                    'Name' => 'VISA'
+                    'Name' => 'VISA',
                 ],
                 'DisplayText' => 'Visa **** 1234',
                 'Card' => [
@@ -159,10 +159,10 @@ final class PaymentRefundSuccessListenerSpec extends ObjectBehavior
                     'ExpYear' => '2025',
                     'ExpMonth' => '12',
                     'HolderName' => 'John Doe',
-                    'CountryCode' => 'US'
-                ]
+                    'CountryCode' => 'US',
+                ],
             ],
-            'Error' => null
+            'Error' => null,
         ];
     }
 }

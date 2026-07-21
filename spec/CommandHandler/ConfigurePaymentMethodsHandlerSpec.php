@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 
 final class ConfigurePaymentMethodsHandlerSpec extends ObjectBehavior
 {
-    function let(PaymentMethodRepositoryInterface $paymentMethodRepository): void
+    public function let(PaymentMethodRepositoryInterface $paymentMethodRepository): void
     {
         $this->beConstructedWith($paymentMethodRepository);
     }
@@ -31,7 +31,7 @@ final class ConfigurePaymentMethodsHandlerSpec extends ObjectBehavior
         $this(new ConfigurePaymentMethods('payment_method_id', ['1', '1']));
     }
 
-    function it_throws_an_exception_when_the_payment_method_cannot_be_found(
+    public function it_throws_an_exception_when_the_payment_method_cannot_be_found(
         PaymentMethodRepositoryInterface $paymentMethodRepository,
     ): void {
         $paymentMethodRepository->find('payment_method_id')->willReturn(null);
@@ -42,7 +42,7 @@ final class ConfigurePaymentMethodsHandlerSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_when_the_payment_method_has_no_gateway_config(
+    public function it_throws_an_exception_when_the_payment_method_has_no_gateway_config(
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodInterface $paymentMethod,
     ): void {

@@ -31,7 +31,7 @@ final class PaymentAssertionFailed
      */
     public function getRequestBody(): array
     {
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         return $this->requestBody;
     }
 
@@ -57,7 +57,7 @@ final class PaymentAssertionFailed
      */
     public function getResponseData(): array
     {
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         return $this->responseData;
     }
 }

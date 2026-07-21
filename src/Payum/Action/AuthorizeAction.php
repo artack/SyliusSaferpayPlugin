@@ -30,7 +30,7 @@ final class AuthorizeAction implements ActionInterface
         $token = $request->getToken();
         Assert::notNull($token);
 
-        if ($payment->getState() !== PaymentInterface::STATE_NEW) {
+        if (PaymentInterface::STATE_NEW !== $payment->getState()) {
             return;
         }
 

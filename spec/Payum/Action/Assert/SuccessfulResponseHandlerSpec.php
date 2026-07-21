@@ -12,7 +12,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class SuccessfulResponseHandlerSpec extends ObjectBehavior
 {
-    function it_handles_the_successful_payment(
+    public function it_handles_the_successful_payment(
         PaymentInterface $payment,
         AssertResponse $response,
         Transaction $transaction,

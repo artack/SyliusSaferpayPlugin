@@ -9,12 +9,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class WebhookUrlGeneratorSpec extends ObjectBehavior
 {
-    function let(RouterInterface $router): void
+    public function let(RouterInterface $router): void
     {
         $this->beConstructedWith($router);
     }
 
-    function it_generates_webhook_url(RouterInterface $router): void
+    public function it_generates_webhook_url(RouterInterface $router): void
     {
         $router->generate(
             'commerce_weavers_sylius_saferpay_webhook',

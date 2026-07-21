@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class CaptureResponseTest extends TestCase
 {
     /** @test */
-    public function it_creates_capture_response_vo_from_array(): void
+    public function itCreatesCaptureResponseVoFromArray(): void
     {
         $response = CaptureResponse::fromArray([
             'StatusCode' => 200,

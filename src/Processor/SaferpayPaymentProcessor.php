@@ -44,8 +44,8 @@ final class SaferpayPaymentProcessor implements SaferpayPaymentProcessorInterfac
         }
 
         if (
-            (isset($paymentDetails['processing']) && $paymentDetails['processing'] === true) ||
-            $paymentDetails['status'] !== $targetState
+            (isset($paymentDetails['processing']) && true === $paymentDetails['processing'])
+            || $paymentDetails['status'] !== $targetState
         ) {
             $this->logger->debug('Payment processing aborted - payment being processed:', ['details' => $paymentDetails]);
 

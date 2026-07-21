@@ -26,13 +26,13 @@ class PaymentRefundFailed
 
     public function getRequestBody(): array
     {
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         return $this->requestBody;
     }
 
     public function getResponseData(): array
     {
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         return $this->responseData;
     }
 }

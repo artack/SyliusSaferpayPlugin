@@ -14,7 +14,7 @@ final class ConfigurationTest extends TestCase
     use ConfigurationTestCaseTrait;
 
     /** @test */
-    public function it_configures_api_base_url_with_default_value(): void
+    public function itConfiguresApiBaseUrlWithDefaultValue(): void
     {
         $this->assertProcessedConfigurationEquals(
             [[]],
@@ -24,7 +24,7 @@ final class ConfigurationTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_for_setting_api_base_url(): void
+    public function itAllowsForSettingApiBaseUrl(): void
     {
         $this->assertProcessedConfigurationEquals(
             [['api_base_url' => 'https://differenturl.com/api/']],
@@ -34,7 +34,7 @@ final class ConfigurationTest extends TestCase
     }
 
     /** @test */
-    public function it_configures_test_api_base_url_with_default_value(): void
+    public function itConfiguresTestApiBaseUrlWithDefaultValue(): void
     {
         $this->assertProcessedConfigurationEquals(
             [[]],
@@ -44,7 +44,7 @@ final class ConfigurationTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_for_setting_test_api_base_url(): void
+    public function itAllowsForSettingTestApiBaseUrl(): void
     {
         $this->assertProcessedConfigurationEquals(
             [['test_api_base_url' => 'https://differenturl.com/api/']],

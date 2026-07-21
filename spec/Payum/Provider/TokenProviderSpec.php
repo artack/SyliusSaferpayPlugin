@@ -17,12 +17,12 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class TokenProviderSpec extends ObjectBehavior
 {
-    function let(Payum $payum): void
+    public function let(Payum $payum): void
     {
         $this->beConstructedWith($payum);
     }
 
-    function it_provides_token_for_assert_with_route_as_string(
+    public function it_provides_token_for_assert_with_route_as_string(
         Payum $payum,
         RequestConfiguration $requestConfiguration,
         Parameters $parameters,
@@ -48,7 +48,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForAssert($payment, $requestConfiguration)->shouldReturn($token);
     }
 
-    function it_provides_token_for_assert_with_route_as_array(
+    public function it_provides_token_for_assert_with_route_as_array(
         Payum $payum,
         RequestConfiguration $requestConfiguration,
         Parameters $parameters,
@@ -77,7 +77,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForAssert($payment, $requestConfiguration)->shouldReturn($token);
     }
 
-    function it_provides_token_for_command_handler(
+    public function it_provides_token_for_command_handler(
         Payum $payum,
         GenericTokenFactoryInterface $tokenFactory,
         PaymentInterface $payment,
@@ -98,7 +98,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForCommandHandler($payment)->shouldReturn($token);
     }
 
-    function it_provides_token_for_capture_with_route_as_string(
+    public function it_provides_token_for_capture_with_route_as_string(
         Payum $payum,
         RequestConfiguration $requestConfiguration,
         Parameters $parameters,
@@ -124,7 +124,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForCapture($payment, $requestConfiguration)->shouldReturn($token);
     }
 
-    function it_provides_token_for_capture_with_route_as_array(
+    public function it_provides_token_for_capture_with_route_as_array(
         Payum $payum,
         RequestConfiguration $requestConfiguration,
         Parameters $parameters,
@@ -153,7 +153,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForCapture($payment, $requestConfiguration)->shouldReturn($token);
     }
 
-    function it_provides_token_for_webhook(
+    public function it_provides_token_for_webhook(
         Payum $payum,
         GenericTokenFactoryInterface $tokenFactory,
         PaymentInterface $payment,
@@ -182,7 +182,7 @@ final class TokenProviderSpec extends ObjectBehavior
         $this->provideForWebhook($payment, 'commerce_weavers_sylius_saferpay_webhook')->shouldReturn($token);
     }
 
-    function it_provides_token(
+    public function it_provides_token(
         Payum $payum,
         GenericTokenFactoryInterface $tokenFactory,
         PaymentInterface $payment,

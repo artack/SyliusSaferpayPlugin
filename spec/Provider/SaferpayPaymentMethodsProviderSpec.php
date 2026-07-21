@@ -11,12 +11,12 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class SaferpayPaymentMethodsProviderSpec extends ObjectBehavior
 {
-    function let(SaferpayClientInterface $client): void
+    public function let(SaferpayClientInterface $client): void
     {
         $this->beConstructedWith($client);
     }
 
-    function it_throws_an_exception_when_the_payment_method_has_no_gateway_config(
+    public function it_throws_an_exception_when_the_payment_method_has_no_gateway_config(
         PaymentMethodInterface $paymentMethod,
     ): void {
         $paymentMethod->getGatewayConfig()->willReturn(null);
@@ -27,7 +27,7 @@ final class SaferpayPaymentMethodsProviderSpec extends ObjectBehavior
         ;
     }
 
-    function it_provides_an_array_with_payment_methods_from_saferpay_api(
+    public function it_provides_an_array_with_payment_methods_from_saferpay_api(
         SaferpayClientInterface $client,
         PaymentMethodInterface $paymentMethod,
         GatewayConfigInterface $gatewayConfig,
@@ -48,7 +48,7 @@ final class SaferpayPaymentMethodsProviderSpec extends ObjectBehavior
         $this->provide($paymentMethod)->shouldReturn(['TWINT', 'VISA']);
     }
 
-    function it_provides_an_empty_array_if_no_payment_methods_returned_from_api(
+    public function it_provides_an_empty_array_if_no_payment_methods_returned_from_api(
         SaferpayClientInterface $client,
         PaymentMethodInterface $paymentMethod,
         GatewayConfigInterface $gatewayConfig,

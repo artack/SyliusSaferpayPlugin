@@ -17,7 +17,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 
 final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -33,7 +33,7 @@ final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
+    public function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
         TransactionLogFactoryInterface $transactionLogFactory,
         PaymentRepositoryInterface $paymentRepository,
         PaymentInterface $payment,
@@ -50,7 +50,7 @@ final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
         $transactionLogFactory->createInformationalLog()->shouldNotBeCalled();
     }
 
-    function it_persists_a_transaction_log(
+    public function it_persists_a_transaction_log(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -90,7 +90,7 @@ final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
         $this($paymentCaptureSucceeded);
     }
 
-    function it_throws_exception_once_payment_not_found(
+    public function it_throws_exception_once_payment_not_found(
         PaymentRepositoryInterface $paymentRepository,
     ): void {
         $paymentCaptureSucceeded = new PaymentCaptureSucceeded(
@@ -109,8 +109,8 @@ final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
     {
         return [
             'TransactionReference' => [
-                'TransactionId' => 'txn123'
-            ]
+                'TransactionId' => 'txn123',
+            ],
         ];
     }
 
@@ -120,11 +120,11 @@ final class PaymentCaptureSuccessListenerSpec extends ObjectBehavior
             'StatusCode' => 200,
             'ResponseHeader' => [
                 'SpecVersion' => '1.0.0',
-                'RequestId' => 'abc123'
+                'RequestId' => 'abc123',
             ],
             'CaptureId' => 'capture123',
             'Status' => 'SUCCESS',
-            'Date' => '2023-05-06T12:34:56Z'
+            'Date' => '2023-05-06T12:34:56Z',
         ];
     }
 }

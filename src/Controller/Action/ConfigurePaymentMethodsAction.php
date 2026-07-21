@@ -48,7 +48,7 @@ final class ConfigurePaymentMethodsAction
             throw new NotFoundHttpException('The gateway config for payment method has not been found');
         }
 
-        if ($gatewayConfig->getFactoryName() !== self::SAFERPAY_FACTORY_NAME) {
+        if (self::SAFERPAY_FACTORY_NAME !== $gatewayConfig->getFactoryName()) {
             return $this->provideRedirectResponse($request);
         }
 

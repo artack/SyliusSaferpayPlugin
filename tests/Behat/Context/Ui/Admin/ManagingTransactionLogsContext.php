@@ -72,6 +72,6 @@ final class ManagingTransactionLogsContext implements Context
      */
     public function iShouldSeeTheContextInformationAboutCommunicationWithSaferpay(): void
     {
-        Assert::true($this->showPage->getContext() !== '');
+        Assert::true('' !== $this->showPage->getContext());
     }
 }

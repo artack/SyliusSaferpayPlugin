@@ -17,6 +17,6 @@ final class DebugModeResolver implements DebugModeResolverInterface
         /** @var array{debug: bool|null} $config */
         $config = $paymentMethod->getGatewayConfig()?->getConfig() ?? [];
 
-        return isset($config['debug']) && $config['debug'] === true;
+        return isset($config['debug']) && true === $config['debug'];
     }
 }

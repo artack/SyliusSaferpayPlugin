@@ -7,11 +7,12 @@ use CommerceWeavers\SyliusSaferpayPlugin\Processor\SaferpayPaymentProcessorInter
 use CommerceWeavers\SyliusSaferpayPlugin\Resolver\SaferpayApiBaseUrlResolver;
 use CommerceWeavers\SyliusSaferpayPlugin\Resolver\SaferpayApiBaseUrlResolverInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator) {
-    $containerConfigurator->import(__DIR__ . '/services/**/**');
+    $containerConfigurator->import(__DIR__.'/services/**/**');
 
     $services = $containerConfigurator->services();
     $services

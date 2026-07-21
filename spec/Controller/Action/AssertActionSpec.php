@@ -6,7 +6,6 @@ namespace spec\CommerceWeavers\SyliusSaferpayPlugin\Controller\Action;
 
 use CommerceWeavers\SyliusSaferpayPlugin\Payum\Factory\AssertFactoryInterface;
 use CommerceWeavers\SyliusSaferpayPlugin\Payum\Request\AssertInterface;
-use Exception;
 use Payum\Core\GatewayInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetStatusInterface;
@@ -26,7 +25,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class AssertActionSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         Payum $payum,
         GetStatusFactoryInterface $getStatusFactory,
         ResolveNextRouteFactoryInterface $resolveNextRouteFactory,
@@ -36,7 +35,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this->beConstructedWith($payum, $getStatusFactory, $resolveNextRouteFactory, $assertFactory, $router);
     }
 
-    function it_returns_redirect_response(
+    public function it_returns_redirect_response(
         Payum $payum,
         GetStatusFactoryInterface $getStatusFactory,
         ResolveNextRouteFactoryInterface $resolveNextRouteFactory,
@@ -81,7 +80,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this($request)->shouldBeLike(new RedirectResponse('/thank-you'));
     }
 
-    function it_returns_redirect_response_with_flash_message_about_failure(
+    public function it_returns_redirect_response_with_flash_message_about_failure(
         Payum $payum,
         GetStatusFactoryInterface $getStatusFactory,
         ResolveNextRouteFactoryInterface $resolveNextRouteFactory,
@@ -130,7 +129,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this($request)->shouldBeLike(new RedirectResponse('/TOKEN'));
     }
 
-    function it_returns_redirect_response_with_flash_message_about_cancellation(
+    public function it_returns_redirect_response_with_flash_message_about_cancellation(
         Payum $payum,
         GetStatusFactoryInterface $getStatusFactory,
         ResolveNextRouteFactoryInterface $resolveNextRouteFactory,
@@ -178,7 +177,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this($request)->shouldBeLike(new RedirectResponse('/TOKEN'));
     }
 
-    function it_throws_an_exception_if_the_next_route_is_null(
+    public function it_throws_an_exception_if_the_next_route_is_null(
         Payum $payum,
         GetStatusFactoryInterface $getStatusFactory,
         ResolveNextRouteFactoryInterface $resolveNextRouteFactory,
@@ -216,6 +215,6 @@ final class AssertActionSpec extends ObjectBehavior
 
         $router->generate(Argument::any(), [])->shouldNotBeCalled();
 
-        $this->shouldThrow(Exception::class)->during('__invoke', [$request]);
+        $this->shouldThrow(\Exception::class)->during('__invoke', [$request]);
     }
 }

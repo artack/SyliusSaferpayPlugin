@@ -35,7 +35,7 @@ final class SaferpayPaymentEventContext implements Context
         $gatewayConfig->setConfig(
             array_merge(
                 $gatewayConfig->getConfig(),
-                ['debug' => $debugMode === 'enabled'],
+                ['debug' => 'enabled' === $debugMode],
             ),
         );
 

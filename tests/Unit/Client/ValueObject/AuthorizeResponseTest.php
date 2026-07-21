@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class AuthorizeResponseTest extends TestCase
 {
     /** @test */
-    public function it_creates_authorize_response_vo_from_array(): void
+    public function itCreatesAuthorizeResponseVoFromArray(): void
     {
         $response = AuthorizeResponse::fromArray([
             'StatusCode' => 200,

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CommerceWeavers\SyliusSaferpayPlugin\Controller\Action;
 
 use CommerceWeavers\SyliusSaferpayPlugin\Payum\Factory\AssertFactoryInterface;
-use Exception;
 use Payum\Core\Payum;
 use Payum\Core\Request\GetStatusInterface;
 use Sylius\Bundle\PayumBundle\Factory\GetStatusFactoryInterface;
@@ -27,7 +26,7 @@ final class AssertAction
     ) {
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     public function __invoke(Request $request): RedirectResponse
     {
         $token = $this->payum->getHttpRequestVerifier()->verify($request);

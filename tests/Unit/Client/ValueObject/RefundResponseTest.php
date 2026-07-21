@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class RefundResponseTest extends TestCase
 {
     /** @test */
-    public function it_creates_refund_response_vo_from_array(): void
+    public function itCreatesRefundResponseVoFromArray(): void
     {
         $response = RefundResponse::fromArray([
             'StatusCode' => 200,

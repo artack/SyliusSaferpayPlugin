@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
+use CommerceWeavers\SyliusSaferpayPlugin\Payment\EventListener\RefundPaymentOnTransitionListener;
+use CommerceWeavers\SyliusSaferpayPlugin\Processor\RefundProcessorInterface;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAssertionFailureListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAssertionSuccessListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAuthorizationFailureListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentAuthorizationSuccessListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentCaptureFailureListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentCaptureSuccessListener;
-use CommerceWeavers\SyliusSaferpayPlugin\Payment\EventListener\RefundPaymentOnTransitionListener;
-use CommerceWeavers\SyliusSaferpayPlugin\Processor\RefundProcessorInterface;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\EventListener\PaymentRefundSuccessListener;
 use CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\Resolver\DebugModeResolverInterface;
 use Sylius\Calendar\Provider\DateTimeProviderInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator) {
@@ -25,7 +26,7 @@ return static function (ContainerConfigurator $containerConfigurator) {
             service(RefundProcessorInterface::class),
         ])
         ->tag('kernel.event_listener', [
-            'event' => 'workflow.sylius_payment.transition.' . PaymentTransitions::TRANSITION_REFUND,
+            'event' => 'workflow.sylius_payment.transition.'.PaymentTransitions::TRANSITION_REFUND,
             'priority' => -100,
         ])
     ;

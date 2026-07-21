@@ -25,7 +25,7 @@ final class CommerceWeaversSyliusSaferpayExtension extends AbstractResourceExten
         $container->setParameter('commerce_weavers.saferpay.api_base_url', $config['api_base_url']);
         $container->setParameter('commerce_weavers.saferpay.test_api_base_url', $config['test_api_base_url']);
 
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
 
         $loader->load('services.php');
     }
@@ -84,7 +84,7 @@ final class CommerceWeaversSyliusSaferpayExtension extends AbstractResourceExten
                 'mappings' => [
                     'CommerceWeaversSyliusSaferpayPlugin' => [
                         'type' => 'xml',
-                        'dir' => $rootPathToPlugin . '/config/doctrine/',
+                        'dir' => $rootPathToPlugin.'/config/doctrine/',
                         'is_bundle' => false,
                         'prefix' => 'CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\Entity',
                         'alias' => 'CommerceWeaversSyliusSaferpay',

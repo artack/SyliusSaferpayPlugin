@@ -23,7 +23,7 @@ use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
 final class AssertPaymentHandlerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,
@@ -41,14 +41,14 @@ final class AssertPaymentHandlerSpec extends ObjectBehavior
         );
     }
 
-    function it_throws_an_exception_if_the_token_is_not_found(StorageInterface $tokenStorage): void
+    public function it_throws_an_exception_if_the_token_is_not_found(StorageInterface $tokenStorage): void
     {
         $tokenStorage->find('token')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new AssertPaymentCommand('token')]);
     }
 
-    function it_executes_assert_flow_and_dispatches_command_retrieved_from_resolve_next_command_action(
+    public function it_executes_assert_flow_and_dispatches_command_retrieved_from_resolve_next_command_action(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,
@@ -87,7 +87,7 @@ final class AssertPaymentHandlerSpec extends ObjectBehavior
         $this(new AssertPaymentCommand('assert_token'));
     }
 
-    function it_executes_assert_flow_and_does_not_dispatch_command_retrieved_from_resolve_next_command_action_if_null(
+    public function it_executes_assert_flow_and_does_not_dispatch_command_retrieved_from_resolve_next_command_action_if_null(
         MessageBusInterface $commandBus,
         Payum $payum,
         StorageInterface $tokenStorage,

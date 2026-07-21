@@ -34,7 +34,7 @@ final class Version20230424115143 extends AbstractMigration
     {
         $platform = $this->connection->getDatabasePlatform();
 
-        /**
+        /*
          * @phpstan-ignore-next-line
          *
          * @psalm-suppress InvalidClass
@@ -43,7 +43,7 @@ final class Version20230424115143 extends AbstractMigration
             return true;
         }
 
-        /**
+        /*
          * @phpstan-ignore-next-line
          *
          * @psalm-suppress InvalidClass

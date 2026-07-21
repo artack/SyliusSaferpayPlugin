@@ -12,6 +12,7 @@ use CommerceWeavers\SyliusSaferpayPlugin\Provider\SaferpayPaymentMethodsProvider
 use CommerceWeavers\SyliusSaferpayPlugin\Provider\UuidProvider;
 use CommerceWeavers\SyliusSaferpayPlugin\Provider\UuidProviderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator) {

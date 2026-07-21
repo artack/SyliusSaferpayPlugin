@@ -17,7 +17,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 
 final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -33,7 +33,7 @@ final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
+    public function it_does_not_persist_a_transaction_log_when_debug_mode_disabled(
         TransactionLogFactoryInterface $transactionLogFactory,
         PaymentRepositoryInterface $paymentRepository,
         PaymentInterface $payment,
@@ -47,7 +47,7 @@ final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
         $transactionLogFactory->createInformationalLog()->shouldNotBeCalled();
     }
 
-    function it_persists_a_transaction_log(
+    public function it_persists_a_transaction_log(
         TransactionLogFactoryInterface $transactionLogFactory,
         ObjectManager $transactionLogManager,
         PaymentRepositoryInterface $paymentRepository,
@@ -87,7 +87,7 @@ final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
         $this($paymentAuthorizationSucceeded);
     }
 
-    function it_throws_exception_once_payment_not_found(
+    public function it_throws_exception_once_payment_not_found(
         PaymentRepositoryInterface $paymentRepository,
     ): void {
         $paymentAuthorizationSucceeded = new PaymentAuthorizationSucceeded(
@@ -109,14 +109,14 @@ final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
             'Payment' => [
                 'Amount' => [
                     'Value' => 1000,
-                    'CurrencyCode' => 'USD'
+                    'CurrencyCode' => 'USD',
                 ],
                 'OrderId' => 'order123',
-                'Description' => 'Example payment description'
+                'Description' => 'Example payment description',
             ],
             'ReturnUrl' => [
-                'Url' => 'https://example.com/return-url'
-            ]
+                'Url' => 'https://example.com/return-url',
+            ],
         ];
     }
 
@@ -126,11 +126,11 @@ final class PaymentAuthorizationSuccessListenerSpec extends ObjectBehavior
             'StatusCode' => 200,
             'ResponseHeader' => [
                 'SpecVersion' => '1.0.0',
-                'RequestId' => 'abc123'
+                'RequestId' => 'abc123',
             ],
             'Token' => 'token123',
             'Expiration' => '2023-05-06T13:00:00Z',
-            'RedirectUrl' => 'https://example.com/return-url'
+            'RedirectUrl' => 'https://example.com/return-url',
         ];
     }
 }

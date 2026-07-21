@@ -6,8 +6,6 @@ namespace spec\CommerceWeavers\SyliusSaferpayPlugin\Payum\Action;
 
 use CommerceWeavers\SyliusSaferpayPlugin\Client\SaferpayClientInterface;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\AssertResponse;
-use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\Error;
-use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\PaymentMeans;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\Body\Transaction;
 use CommerceWeavers\SyliusSaferpayPlugin\Client\ValueObject\ErrorResponse;
 use CommerceWeavers\SyliusSaferpayPlugin\Payum\Action\Assert\FailedResponseHandlerInterface;
@@ -23,7 +21,7 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class AssertActionSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         SaferpayClientInterface $saferpayClient,
         SuccessfulResponseHandlerInterface $successfulResponseHandler,
         FailedResponseHandlerInterface $failedResponseHandler,
@@ -31,28 +29,28 @@ final class AssertActionSpec extends ObjectBehavior
         $this->beConstructedWith($saferpayClient, $successfulResponseHandler, $failedResponseHandler);
     }
 
-    function it_supports_assert_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_assert_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new Assert($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_assert(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_assert(SyliusPaymentInterface $payment): void
     {
         $request = new Capture($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_assert_request_with_wrong_model(PayumPaymentInterface $payment): void
+    public function it_does_not_support_assert_request_with_wrong_model(PayumPaymentInterface $payment): void
     {
         $request = new Assert($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -60,7 +58,7 @@ final class AssertActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_asserts_the_successful_payment(
+    public function it_asserts_the_successful_payment(
         SaferpayClientInterface $saferpayClient,
         SuccessfulResponseHandlerInterface $successfulResponseHandler,
         SyliusPaymentInterface $payment,
@@ -80,7 +78,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this->execute(new Assert($payment->getWrappedObject()));
     }
 
-    function it_asserts_the_cancelled_payment(
+    public function it_asserts_the_cancelled_payment(
         SaferpayClientInterface $saferpayClient,
         FailedResponseHandlerInterface $failedResponseHandler,
         SyliusPaymentInterface $payment,
@@ -98,7 +96,7 @@ final class AssertActionSpec extends ObjectBehavior
         $this->execute(new Assert($payment->getWrappedObject()));
     }
 
-    function it_asserts_the_failed_payment(
+    public function it_asserts_the_failed_payment(
         SaferpayClientInterface $saferpayClient,
         FailedResponseHandlerInterface $failedResponseHandler,
         SyliusPaymentInterface $payment,

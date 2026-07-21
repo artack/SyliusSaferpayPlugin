@@ -10,17 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class PaymentProviderSpec extends ObjectBehavior
 {
-    function let(OrderProviderInterface $orderProvider, EntityManagerInterface $entityManager): void
+    public function let(OrderProviderInterface $orderProvider, EntityManagerInterface $entityManager): void
     {
         $this->beConstructedWith($orderProvider, $entityManager);
     }
 
-    function it_throws_an_exception_when_last_payment_with_new_state_does_not_exist_for_assert(
+    public function it_throws_an_exception_when_last_payment_with_new_state_does_not_exist_for_assert(
         OrderProviderInterface $orderProvider,
         OrderInterface $order,
     ): void {
@@ -34,7 +32,7 @@ final class PaymentProviderSpec extends ObjectBehavior
         ;
     }
 
-    function it_throws_an_exception_when_last_payment_with_new_state_does_not_exist_for_capture(
+    public function it_throws_an_exception_when_last_payment_with_new_state_does_not_exist_for_capture(
         OrderProviderInterface $orderProvider,
         OrderInterface $order,
     ): void {
@@ -48,7 +46,7 @@ final class PaymentProviderSpec extends ObjectBehavior
         ;
     }
 
-    function it_provides_last_new_payment_for_assert(
+    public function it_provides_last_new_payment_for_assert(
         OrderProviderInterface $orderProvider,
         OrderInterface $order,
         PaymentInterface $payment,
@@ -59,7 +57,7 @@ final class PaymentProviderSpec extends ObjectBehavior
         $this->provideForAssert('TOKEN')->shouldReturn($payment);
     }
 
-    function it_provides_last_authorized_payment_for_capture(
+    public function it_provides_last_authorized_payment_for_capture(
         OrderProviderInterface $orderProvider,
         OrderInterface $order,
         PaymentInterface $payment,
@@ -70,7 +68,7 @@ final class PaymentProviderSpec extends ObjectBehavior
         $this->provideForCapture('TOKEN')->shouldReturn($payment);
     }
 
-    function it_provides_last_payment_for_order(
+    public function it_provides_last_payment_for_order(
         OrderProviderInterface $orderProvider,
         EntityManagerInterface $entityManager,
         OrderInterface $order,

@@ -19,33 +19,33 @@ use Sylius\Component\Core\Model\PaymentInterface as SyliusPaymentInterface;
 
 final class CaptureActionSpec extends ObjectBehavior
 {
-    function let(SaferpayClientInterface $saferpayClient, StatusCheckerInterface $statusChecker): void
+    public function let(SaferpayClientInterface $saferpayClient, StatusCheckerInterface $statusChecker): void
     {
         $this->beConstructedWith($saferpayClient, $statusChecker);
     }
 
-    function it_supports_capture_request_and_payment_model(SyliusPaymentInterface $payment): void
+    public function it_supports_capture_request_and_payment_model(SyliusPaymentInterface $payment): void
     {
         $request = new Capture($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(true);
     }
 
-    function it_does_not_support_other_requests_than_capture(SyliusPaymentInterface $payment): void
+    public function it_does_not_support_other_requests_than_capture(SyliusPaymentInterface $payment): void
     {
         $request = new Authorize($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_does_not_support_capture_request_with_wrong_model(PayumPaymentInterface $payment): void
+    public function it_does_not_support_capture_request_with_wrong_model(PayumPaymentInterface $payment): void
     {
         $request = new Capture($payment->getWrappedObject());
 
         $this->supports($request)->shouldReturn(false);
     }
 
-    function it_throws_an_exception_when_request_not_supported_on_execute(): void
+    public function it_throws_an_exception_when_request_not_supported_on_execute(): void
     {
         $this
             ->shouldThrow(RequestNotSupportedException::class)
@@ -53,7 +53,7 @@ final class CaptureActionSpec extends ObjectBehavior
         ;
     }
 
-    function it_does_nothing_if_payment_has_captured_status(
+    public function it_does_nothing_if_payment_has_captured_status(
         SaferpayClientInterface $saferpayClient,
         StatusCheckerInterface $statusChecker,
         SyliusPaymentInterface $payment,
@@ -66,7 +66,7 @@ final class CaptureActionSpec extends ObjectBehavior
         $this->execute(new Capture($payment->getWrappedObject()));
     }
 
-    function it_captures_the_payment(
+    public function it_captures_the_payment(
         SaferpayClientInterface $saferpayClient,
         StatusCheckerInterface $statusChecker,
         SyliusPaymentInterface $payment,
@@ -89,7 +89,7 @@ final class CaptureActionSpec extends ObjectBehavior
         $this->execute(new Capture($payment->getWrappedObject()));
     }
 
-    function it_marks_the_payment_as_failed_if_there_is_different_status_code_than_ok(
+    public function it_marks_the_payment_as_failed_if_there_is_different_status_code_than_ok(
         SaferpayClientInterface $saferpayClient,
         SyliusPaymentInterface $payment,
         StatusCheckerInterface $statusChecker,

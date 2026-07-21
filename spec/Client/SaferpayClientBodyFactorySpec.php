@@ -18,7 +18,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class SaferpayClientBodyFactorySpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         UuidProviderInterface $uuidProvider,
         TokenProviderInterface $tokenProvider,
         WebhookRouteGeneratorInterface $webhookRouteGenerator,
@@ -26,12 +26,12 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         $this->beConstructedWith($uuidProvider, $tokenProvider, $webhookRouteGenerator);
     }
 
-    function it_implements_saferpay_client_body_factory_interface(): void
+    public function it_implements_saferpay_client_body_factory_interface(): void
     {
         $this->shouldHaveType(SaferpayClientBodyFactoryInterface::class);
     }
 
-    function it_creates_body_for_authorize_request(
+    public function it_creates_body_for_authorize_request(
         UuidProviderInterface $uuidProvider,
         TokenProviderInterface $tokenProvider,
         WebhookRouteGeneratorInterface $webhookRouteGenerator,
@@ -41,7 +41,7 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         OrderInterface $order,
         TokenInterface $token,
         TokenInterface $webhookToken,
-        CustomerInterface $customer
+        CustomerInterface $customer,
     ): void {
         $uuidProvider->provide()->willReturn('b27de121-ffa0-4f1d-b7aa-b48109a88486');
 
@@ -94,7 +94,7 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         ]);
     }
 
-    function it_creates_body_for_assert_request(
+    public function it_creates_body_for_assert_request(
         UuidProviderInterface $uuidProvider,
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
@@ -121,7 +121,7 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         ]);
     }
 
-    function it_creates_body_for_capture_request(
+    public function it_creates_body_for_capture_request(
         UuidProviderInterface $uuidProvider,
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
@@ -149,7 +149,7 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         ]);
     }
 
-    function it_creates_body_for_refund_request(
+    public function it_creates_body_for_refund_request(
         UuidProviderInterface $uuidProvider,
         PaymentInterface $payment,
         PaymentMethodInterface $paymentMethod,
@@ -185,7 +185,7 @@ final class SaferpayClientBodyFactorySpec extends ObjectBehavior
         ]);
     }
 
-    function it_provides_headers_for_terminal_request(UuidProviderInterface $uuidProvider): void
+    public function it_provides_headers_for_terminal_request(UuidProviderInterface $uuidProvider): void
     {
         $uuidProvider->provide()->willReturn('b27de121-ffa0-4f1d-b7aa-b48109a88486');
 

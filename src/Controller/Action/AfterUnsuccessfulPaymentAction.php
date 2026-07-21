@@ -33,7 +33,7 @@ final class AfterUnsuccessfulPaymentAction
         /** @var PaymentInterface|null $penultimatePayment */
         $penultimatePayment = array_pop($payments);
 
-        if ($lastPayment->getState() === PaymentInterface::STATE_NEW) {
+        if (PaymentInterface::STATE_NEW === $lastPayment->getState()) {
             $this->addFlashMessageForPenultimatePayment($request, $penultimatePayment);
 
             return new RedirectResponse($this->router->generate(
@@ -42,7 +42,7 @@ final class AfterUnsuccessfulPaymentAction
             ));
         }
 
-        if ($lastPayment->getState() === PaymentInterface::STATE_COMPLETED) {
+        if (PaymentInterface::STATE_COMPLETED === $lastPayment->getState()) {
             $this->addFlashMessage($request, 'info', 'sylius.payment.completed');
         }
 
@@ -58,11 +58,11 @@ final class AfterUnsuccessfulPaymentAction
 
     private function addFlashMessageForPenultimatePayment(Request $request, ?PaymentInterface $payment): void
     {
-        if ($payment === null) {
+        if (null === $payment) {
             return;
         }
 
-        if ($payment->getState() === PaymentInterface::STATE_CANCELLED) {
+        if (PaymentInterface::STATE_CANCELLED === $payment->getState()) {
             $this->addFlashMessage($request, 'info', 'sylius.payment.cancelled');
 
             return;

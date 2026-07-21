@@ -16,7 +16,7 @@ final class FailedResponseHandler implements FailedResponseHandlerInterface
         $paymentDetails = $payment->getDetails();
 
         $paymentDetails['transaction_id'] = $response->getTransactionId();
-        $paymentDetails['status'] = $response->getName() === ErrorName::TRANSACTION_ABORTED
+        $paymentDetails['status'] = ErrorName::TRANSACTION_ABORTED === $response->getName()
             ? StatusAction::STATUS_CANCELLED
             : StatusAction::STATUS_FAILED;
 
