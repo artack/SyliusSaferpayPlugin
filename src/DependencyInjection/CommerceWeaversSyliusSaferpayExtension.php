@@ -87,7 +87,6 @@ final class CommerceWeaversSyliusSaferpayExtension extends AbstractResourceExten
                         'dir' => $rootPathToPlugin.'/config/doctrine/',
                         'is_bundle' => false,
                         'prefix' => 'CommerceWeavers\SyliusSaferpayPlugin\TransactionLog\Entity',
-                        'alias' => 'CommerceWeaversSyliusSaferpay',
                     ],
                 ],
             ],
